@@ -23,7 +23,7 @@ fi
 echo "⬇️  Lade NAS Mount Manager herunter..."
 
 # Option A: Von GitHub
-SCRIPT_URL="https://raw.githubusercontent.com/IHR_USERNAME/nas-mount-manager/main/nas_mount_gui.py"
+SCRIPT_URL="https://raw.githubusercontent.com/tr1pp4/IPmountAllShares/main/nas_mount_gui.py"
 
 # Option B: Von Ihrem NAS/Server
 # SCRIPT_URL="http://192.168.0.11/nas_mount_gui.py"
