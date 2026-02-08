@@ -187,10 +187,10 @@ class NASMountManager:
         """Führt Shell-Befehl aus und gibt Ergebnis zurück"""
         try:
             result = subprocess.run(cmd, shell=True, capture_output=True, 
-                                  text=True, timeout=30)
+                                  text=True, timeout=120)  # 120 Sekunden für mount-Operationen
             return result.returncode, result.stdout, result.stderr
         except subprocess.TimeoutExpired:
-            return 1, "", "Timeout nach 30 Sekunden"
+            return 1, "", "Timeout nach 120 Sekunden"
         except Exception as e:
             return 1, "", str(e)
     
@@ -282,7 +282,7 @@ echo "$SHARES" | while read share; do
         
         if ! mountpoint -q "$mount_point" 2>/dev/null; then
             sudo mount -t cifs "//$NAS_IP/$share" "$mount_point" \\
-                -o "username=$USERNAME,password=$PASSWORD,uid=$(id -u),gid=$(id -g),file_mode=0777,dir_mode=0777,vers=3.0,soft,timeo=10,retrans=1,_netdev" \\
+                -o "username=$USERNAME,password=$PASSWORD,uid=$(id -u),gid=$(id -g),file_mode=0777,dir_mode=0777,vers=3.0,soft,_netdev" \\
                 2>/dev/null
             
             if [ $? -eq 0 ]; then
@@ -521,7 +521,7 @@ WantedBy=default.target
                     
                     subprocess.run(['sudo', 'mkdir', '-p', mount_point], capture_output=True)
                     
-                    cmd = f'sudo mount -t cifs "//{nas_ip}/{share}" "{mount_point}" -o "username={username},password={password},uid=1000,gid=1000,file_mode=0777,dir_mode=0777,vers=3.0,soft,timeo=10,retrans=1,_netdev"'
+                    cmd = f'sudo mount -t cifs "//{nas_ip}/{share}" "{mount_point}" -o "username={username},password={password},uid=1000,gid=1000,file_mode=0777,dir_mode=0777,vers=3.0,soft,_netdev"'
                     
                     returncode, stdout, stderr = self.run_command(cmd)
                     
