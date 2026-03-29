@@ -506,7 +506,7 @@ class NASMountManager:
     
     def show_about(self):
         messagebox.showinfo("Über", 
-            "NAS Mount Manager v3.0\n\n"
+            "NAS Mount Manager v3.1\n\n"
             "Einfaches Tool zum Mounten von NAS-Shares\n"
             "✓ Automatische Share-Erkennung\n"
             "✓ Systemweite Mounts\n"
